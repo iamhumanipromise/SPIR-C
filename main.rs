@@ -1,22 +1,28 @@
-use std::fs::File;
-use std::io::prelude::*;
+extern crate shader_ripper;
 
-mod vertex_flow;
-mod shader_ripper;
-mod spirv_optimizer;
-mod glsl_to_spirv;
+use std::env;
+use std::path::Path;
+use shader_ripper::{rip_shader, generate_code};
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut file = File::open("input.glsl")?;
-    let mut contents = String::new();
-    file.read_to_string(&mut contents)?;
+fn main() {
+    let args: Vec<String> = env::args().collect();
 
-    let vertex_flow = vertex_flow::VertexFlow::new(&contents)?;
-    let spirv = glsl_to_spirv::compile(&contents)?;
-    let spirv_optimized = spirv_optimizer::optimize(&spirv)?;
-    let spirv_as_bytes = spirv_optimized.as_binary_u8();
+    if args.len() != 2 {
+        println!("Usage: {} <shader_file_path>", args[0]);
+        return;
+    }
 
-    shader_ripper::rip_shader(&spirv_as_bytes)?;
+    let file_path = Path::new(&args[1]);
 
-    Ok(())
+    if let Some(extension) = file_path.extension() {
+        if extension == "vert" || extension == "frag" {
+            let shader_code = rip_shader(file_path);
+            generate_code(shader_code);
+            println!("Done!");
+        } else {
+            println!("Unsupported file type.");
+        }
+    } else {
+        println!("Invalid file path.");
+    }
 }
