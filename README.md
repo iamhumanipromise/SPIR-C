@@ -53,7 +53,7 @@ OpenCL 3.0 source code → Shaderc (GLSL 4.5) → glslang (GLSL 4.5) → SPIR-V-
 | that can be executed on OpenGL 1.4 compatible        |
 | hardware                                             |
 +-----------------------------------------------------+`
-
+```
 
 ## Installation
 
