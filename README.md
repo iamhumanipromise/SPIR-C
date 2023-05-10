@@ -1,9 +1,14 @@
 # SPIR-C
 **SPIR-C is a software toolchain that enables the conversion of OpenCL 3.0 source code into GLSL 1.10 code, which can then be executed on OpenGL 1.4 GPUs. The toolchain consists of several modules, including ShaderRipper, which is responsible for converting GLSL 4.5 code into SPIR-V binary, and SPIR-V-Cross, which is used to convert SPIR-V binary into GLSL 1.10.
 
-## Workflow
+## Steps and Workflow
 
 Here's a brief overview of the SPIR-C workflow:
+
+- Preprocessing: The GLSL code is preprocessed to remove any unsupported OpenCL 3.0 extensions and translate any unsupported syntax to compatible syntax.
+- Compilation: The preprocessed GLSL code is then compiled to SPIR-V using the shaderc library.
+- Optimization: The SPIR-V code is then optimized using the LLVM library to improve performance.
+- Execution: Finally, the optimized SPIR-V code can be executed on a GPU using OpenGL.
 
 OpenCL 3.0 source code → Shaderc (GLSL 4.5) → glslang (GLSL 4.5) → SPIR-V-Cross (SPIR-V binary) → GLSL 1.10 code
 
