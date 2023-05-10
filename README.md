@@ -7,7 +7,8 @@ Here's a brief overview of the SPIR-C workflow:
 
 OpenCL 3.0 source code → Shaderc (GLSL 4.5) → glslang (GLSL 4.5) → SPIR-V-Cross (SPIR-V binary) → GLSL 1.10 code
 
-`+-----------------------------------------------------+
+```ASCII
++-----------------------------------------------------+
 |                       Input                         |
 |-----------------------------------------------------|
 | OpenCL 3.0 source code                              |
